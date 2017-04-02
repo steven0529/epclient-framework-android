@@ -2,6 +2,7 @@ package com.chuck.epclient.dagger.modules.networking;
 
 import android.content.Context;
 
+import com.chuck.epclient.dagger.modules.context.ContextModule;
 import com.chuck.epclient.dagger.scope.ApplicationScope;
 
 import java.io.File;
@@ -18,12 +19,15 @@ import timber.log.Timber;
  * Created by Steven Reyes (sreyes@stratpoint.com) on 01/04/2017
  */
 
-@Module
+@Module(includes = ContextModule.class)
 public class OkHttp3Module {
+
+    private static final String OKHTTP_CACHE_NAME = "okhttp-cache";
 
     long cacheSizeKb;
     long timeoutSecs;
     HttpLoggingInterceptor.Level logLevel;
+
 
     public OkHttp3Module(long cacheSizeKb, long timeoutSecs, HttpLoggingInterceptor.Level logLevel) {
         this.cacheSizeKb = cacheSizeKb;
@@ -53,8 +57,8 @@ public class OkHttp3Module {
 
     @Provides
     @ApplicationScope
-    public File cacheFile(Context context, String fileName) {
-        return new File(context.getCacheDir(), fileName);
+    public File cacheFile(Context context) {
+        return new File(context.getCacheDir(), OKHTTP_CACHE_NAME);
     }
 
     @Provides

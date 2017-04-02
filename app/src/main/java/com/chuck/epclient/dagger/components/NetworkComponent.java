@@ -15,5 +15,4 @@ public interface NetworkComponent {
 
     Retrofit getRetrofit();
 
-
 }

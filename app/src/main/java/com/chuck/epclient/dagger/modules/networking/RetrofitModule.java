@@ -6,7 +6,6 @@ import com.google.gson.Gson;
 import dagger.Module;
 import dagger.Provides;
 import okhttp3.OkHttpClient;
-import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +25,7 @@ public class RetrofitModule {
 
     @Provides
     @ApplicationScope
-    public Retrofit retrofit(OkHttpClient okHttpClient, Converter.Factory gsonConverterFactory) {
+    public Retrofit retrofit(OkHttpClient okHttpClient, GsonConverterFactory gsonConverterFactory) {
         return new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .client(okHttpClient)
